@@ -1,8 +1,11 @@
+
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 const mqtt = require('mqtt');
 var mqttHandler = require('./mqtt_handler');
+var firebase = require('firebase');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -36,8 +39,18 @@ app.post("/acceso/cerrar", function(req, res) {
    res.json({"success": true});
 });
 
- var port = process.env.PORT || 8080;
+var ref = firebase.database().ref('temperature');
+var ref2 = firebase.database().ref('humidity');
+  
+app.get('/temp/',function(req, res){
+  ref.root.once('value')
+  .then(function(snapshot){
+    res.json(snapshot.val());
+  });
+});
 
-var server = app.listen(8080,function () {
+ var port = process.env.PORT || 3000;
+
+var server = app.listen(port,function () {
     console.log("app running on port.", server.address().port);
 });

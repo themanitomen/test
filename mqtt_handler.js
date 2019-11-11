@@ -1,5 +1,17 @@
 const mqtt = require('mqtt');
 
+var firebase = require("firebase");
+
+var admin = require("firebase-admin");
+
+
+
+firebase.initializeApp({
+ serviceAccount: "esti-iot-firebase-adminsdk-qyttk-8f209e4916.json",
+  databaseURL: "https://esti-iot.firebaseio.com"
+});
+
+
 class MqttHandler {
   constructor() {
     this.mqttClient = null;
