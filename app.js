@@ -18,12 +18,12 @@ mqttClient.connect();
 app.post("/luz/encender", function(req, res) {
  
   mqttClient.sendMessage('0',req.body.mens);
-  res.status(200).send('0');
+  res.status(100).send('0');
   res.json({"success": true});
 });
 app.post("/luz/apagar", function(req, res) {
   mqttClient.sendMessage('1',req.body.mens);
-  res.status(200).send('1');
+  res.status(100).send('1');
    res.json({"success": true});
 });
 
